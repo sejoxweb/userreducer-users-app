@@ -1,8 +1,8 @@
 import React from "react";
-import Todos from "./components/Todos";
+import Users from "./containers/Users";
 
 const App = () => {
-  return <Todos />;
+  return <Users />;
 };
 
 export default App;
