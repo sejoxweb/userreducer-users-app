@@ -1,8 +1,10 @@
 import React from "react";
-import Users from "./containers/Users";
+import Shop from "./containers/Shop";
+// import Users from "./containers/Users";
 
 const App = () => {
-  return <Users />;
+  // return <Users />;
+  return <Shop />;
 };
 
 export default App;

@@ -186,5 +186,45 @@
       "name": "t",
       "id": 10
     }
+  ],
+  "shopitems": [
+    {
+      "category": "Grocery",
+      "products": [
+        {
+          "id": 101,
+          "name": "Organic Brown Rice",
+          "price": 3.99,
+          "description": "A 2-pound bag of organic brown rice, perfect for a healthy and nutritious meal.",
+          "product_image": "https://dummyimage.com/150x4:3/"
+        },
+        {
+          "id": 102,
+          "name": "Almond Milk",
+          "price": 2.99,
+          "description": "A carton of unsweetened almond milk, a delicious and healthy alternative to dairy milk.",
+          "product_image": "https://dummyimage.com/150x4:3/"
+        }
+      ]
+    },
+    {
+      "category": "Electronics",
+      "products": [
+        {
+          "id": 103,
+          "name": "Smartphone",
+          "price": 699.99,
+          "description": "A high-end smartphone with the latest features and technology.",
+          "product_image": "https://dummyimage.com/150x4:3/"
+        },
+        {
+          "id": 104,
+          "name": "Laptop",
+          "price": 999.99,
+          "description": "A powerful and lightweight laptop for all your computing needs.",
+          "product_image": "https://dummyimage.com/150x4:3/"
+        }
+      ]
+    }
   ]
 }
