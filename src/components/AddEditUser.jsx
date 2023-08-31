@@ -1,8 +1,14 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
-import { API_URL } from "../constants";
+import { ADD_USER, API_URL, UPDATE_USER } from "../constants";
 
-const AddEditUser = ({ editUser, setEditUser, setUsers, setOpen }) => {
+const AddEditUser = ({
+  editUser,
+  setEditUser,
+  //setUsers,
+  usersDispatch,
+  setOpen,
+}) => {
   const onFinish = async (values) => {
     try {
       const payload = {
@@ -11,18 +17,20 @@ const AddEditUser = ({ editUser, setEditUser, setUsers, setOpen }) => {
       };
       if (editUser.id) {
         await axios.put(`${API_URL}/users/${editUser.id}`, payload);
-        setUsers((users) =>
-          users.map((user) => {
-            if (user.id === payload.id) {
-              return payload;
-            } else {
-              return user;
-            }
-          })
-        );
+        // setUsers((users) =>
+        //   users.map((user) => {
+        //     if (user.id === payload.id) {
+        //       return payload;
+        //     } else {
+        //       return user;
+        //     }
+        //   })
+        // );
+        usersDispatch({ type: UPDATE_USER, payload });
       } else {
         const response = await axios.post(`${API_URL}/users`, payload);
-        setUsers((users) => [...users, response.data]);
+        // setUsers((users) => [...users, response.data]);
+        usersDispatch({ type: ADD_USER, data: response.data });
       }
 
       setEditUser({});

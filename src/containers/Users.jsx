@@ -1,17 +1,22 @@
 import { Button, List, Modal } from "antd";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import AddEditUser from "../components/AddEditUser";
-import { API_URL } from "../constants";
+import { API_URL, DELETE_USER, FETCH_USERS } from "../constants";
 import MyTable from "../components/MyTable";
+import myUsersReducer from "../reducers/myUsersReducer";
 
 const Users = () => {
-  const [users, setUsers] = useState([]);
+  //const [users, setUsers] = useState([]);
+  const [users, usersDispatch] = useReducer(myUsersReducer, []);
   const [selectedUser, setSelectedUser] = useState({});
   const [editUser, setEditUser] = useState({});
   const [open, setOpen] = useState(false);
 
+  console.log("inside component users>>>", users);
+
+  //const setUsers = () => {}; temp
   useEffect(() => {
     fetchUsers();
   }, []);
@@ -19,7 +24,8 @@ const Users = () => {
   const fetchUsers = async () => {
     try {
       const response = await axios.get(`${API_URL}/users`);
-      setUsers(response.data);
+      //setUsers(response.data);
+      usersDispatch({ type: FETCH_USERS, data: response.data });
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +34,8 @@ const Users = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`${API_URL}/users/${id}`);
-      setUsers((users) => users.filter((user) => user.id !== id));
+      //setUsers((users) => users.filter((user) => user.id !== id));
+      usersDispatch({ type: DELETE_USER, id });
     } catch (error) {
       console.log(error);
     }
@@ -83,7 +90,8 @@ const Users = () => {
       >
         <AddEditUser
           editUser={editUser}
-          setUsers={setUsers}
+          // setUsers={setUsers}
+          usersDispatch={usersDispatch}
           setEditUser={setEditUser}
           setOpen={setOpen}
         />

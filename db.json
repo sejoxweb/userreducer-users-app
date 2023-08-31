@@ -157,7 +157,7 @@
     },
     {
       "id": 8,
-      "name": "Nicholas Runolfsdottir t",
+      "name": "Nicholas Runolfsdottir t6",
       "username": "Maxime_Nienow",
       "email": "Sherwood@rosamond.me",
       "address": {
@@ -179,12 +179,8 @@
       }
     },
     {
-      "name": "sejox",
+      "name": "test",
       "id": 9
-    },
-    {
-      "name": "t",
-      "id": 10
     }
   ],
   "shopitems": [
