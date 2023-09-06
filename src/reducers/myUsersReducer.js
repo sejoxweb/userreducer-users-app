@@ -7,6 +7,8 @@ const myUsersReducer = (users, action) => {
   switch (action.type) {
     case FETCH_USERS:
       return action.data;
+    case ADD_USER:
+      return [...users, action.data];
     case UPDATE_USER:
       return users.map((user) => {
         if (user.id === action.payload.id) {
@@ -15,8 +17,6 @@ const myUsersReducer = (users, action) => {
           return user;
         }
       });
-    case ADD_USER:
-      return [...users, action.data];
     case DELETE_USER:
       return users.filter((user) => user.id !== action.id);
     default:

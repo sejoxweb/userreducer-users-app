@@ -6,6 +6,7 @@ import AddEditUser from "../components/AddEditUser";
 import { API_URL, DELETE_USER, FETCH_USERS } from "../constants";
 import MyTable from "../components/MyTable";
 import myUsersReducer from "../reducers/myUsersReducer";
+import { UsersContext, UsersDispatchContext } from "../context/UsersContext";
 
 const Users = () => {
   //const [users, setUsers] = useState([]);
@@ -42,61 +43,65 @@ const Users = () => {
   };
 
   return (
-    <div>
-      <List
-        header={
-          <div className="text-2xl">
-            Users <Button onClick={() => setOpen(true)}>Add User</Button>
-          </div>
-        }
-        dataSource={users}
-        renderItem={(user) => (
-          <List.Item onClick={() => setSelectedUser(user)}>
-            {user.name}{" "}
-            <DeleteFilled
-              style={{ color: "darkred" }}
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDelete(user.id);
-              }}
-            />
-            <EditFilled
-              onClick={(e) => {
-                e.stopPropagation();
-                setEditUser(user);
-                setOpen(true);
-              }}
-            />
-          </List.Item>
-        )}
-      />
+    <UsersContext.Provider value={users}>
+      <UsersDispatchContext.Provider value={usersDispatch}>
+        <div>
+          <List
+            header={
+              <div className="text-2xl">
+                Users <Button onClick={() => setOpen(true)}>Add User</Button>
+              </div>
+            }
+            dataSource={users}
+            renderItem={(user) => (
+              <List.Item onClick={() => setSelectedUser(user)}>
+                {user.name}{" "}
+                <DeleteFilled
+                  style={{ color: "darkred" }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(user.id);
+                  }}
+                />
+                <EditFilled
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setEditUser(user);
+                    setOpen(true);
+                  }}
+                />
+              </List.Item>
+            )}
+          />
 
-      <Modal
-        open={selectedUser.name}
-        onCancel={() => setSelectedUser({})}
-        footer={null}
-      >
-        {/* <div>{selectedUser.name}</div> */}
-        <MyTable data={selectedUser} />
-      </Modal>
-      <Modal
-        destroyOnClose
-        open={open}
-        footer={null}
-        onCancel={() => {
-          setOpen(false);
-          setEditUser({});
-        }}
-      >
-        <AddEditUser
-          editUser={editUser}
-          // setUsers={setUsers}
-          usersDispatch={usersDispatch}
-          setEditUser={setEditUser}
-          setOpen={setOpen}
-        />
-      </Modal>
-    </div>
+          <Modal
+            open={selectedUser.name}
+            onCancel={() => setSelectedUser({})}
+            footer={null}
+          >
+            {/* <div>{selectedUser.name}</div> */}
+            <MyTable data={selectedUser} />
+          </Modal>
+          <Modal
+            destroyOnClose
+            open={open}
+            footer={null}
+            onCancel={() => {
+              setOpen(false);
+              setEditUser({});
+            }}
+          >
+            <AddEditUser
+              editUser={editUser}
+              // setUsers={setUsers}
+              usersDispatch={usersDispatch}
+              setEditUser={setEditUser}
+              setOpen={setOpen}
+            />
+          </Modal>
+        </div>
+      </UsersDispatchContext.Provider>
+    </UsersContext.Provider>
   );
 };
 

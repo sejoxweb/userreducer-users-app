@@ -1,14 +1,23 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { ADD_USER, API_URL, UPDATE_USER } from "../constants";
+import { UsersContext, UsersDispatchContext } from "../context/UsersContext";
+import { useContext } from "react";
 
 const AddEditUser = ({
   editUser,
   setEditUser,
   //setUsers,
-  usersDispatch,
+  //usersDispatch,
   setOpen,
 }) => {
+  const users = useContext(UsersContext);
+
+  const usersDispatch = useContext(UsersDispatchContext);
+
+  console.log("users>>>", users);
+  console.log("usersDispatch>>>", usersDispatch);
+
   const onFinish = async (values) => {
     try {
       const payload = {
