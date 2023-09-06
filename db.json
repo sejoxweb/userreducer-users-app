@@ -189,6 +189,18 @@
     {
       "name": "ses",
       "id": 11
+    },
+    {
+      "name": "hello",
+      "id": 12
+    },
+    {
+      "name": "world",
+      "id": 13
+    },
+    {
+      "name": "open shop",
+      "id": 14
     }
   ],
   "shopitems": [

@@ -1,19 +1,21 @@
 import { Button, List, Modal } from "antd";
 import axios from "axios";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { DeleteFilled, EditFilled } from "@ant-design/icons";
 import AddEditUser from "../components/AddEditUser";
 import { API_URL, DELETE_USER, FETCH_USERS } from "../constants";
 import MyTable from "../components/MyTable";
-import myUsersReducer from "../reducers/myUsersReducer";
-import { UsersContext, UsersDispatchContext } from "../context/UsersContext";
+import { useUsers, useUsersDispatch } from "../context/UsersContext";
 
 const Users = () => {
   //const [users, setUsers] = useState([]);
-  const [users, usersDispatch] = useReducer(myUsersReducer, []);
+
   const [selectedUser, setSelectedUser] = useState({});
   const [editUser, setEditUser] = useState({});
   const [open, setOpen] = useState(false);
+
+  const users = useUsers();
+  const usersDispatch = useUsersDispatch();
 
   console.log("inside component users>>>", users);
 
@@ -43,65 +45,61 @@ const Users = () => {
   };
 
   return (
-    <UsersContext.Provider value={users}>
-      <UsersDispatchContext.Provider value={usersDispatch}>
-        <div>
-          <List
-            header={
-              <div className="text-2xl">
-                Users <Button onClick={() => setOpen(true)}>Add User</Button>
-              </div>
-            }
-            dataSource={users}
-            renderItem={(user) => (
-              <List.Item onClick={() => setSelectedUser(user)}>
-                {user.name}{" "}
-                <DeleteFilled
-                  style={{ color: "darkred" }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDelete(user.id);
-                  }}
-                />
-                <EditFilled
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setEditUser(user);
-                    setOpen(true);
-                  }}
-                />
-              </List.Item>
-            )}
-          />
-
-          <Modal
-            open={selectedUser.name}
-            onCancel={() => setSelectedUser({})}
-            footer={null}
-          >
-            {/* <div>{selectedUser.name}</div> */}
-            <MyTable data={selectedUser} />
-          </Modal>
-          <Modal
-            destroyOnClose
-            open={open}
-            footer={null}
-            onCancel={() => {
-              setOpen(false);
-              setEditUser({});
-            }}
-          >
-            <AddEditUser
-              editUser={editUser}
-              // setUsers={setUsers}
-              usersDispatch={usersDispatch}
-              setEditUser={setEditUser}
-              setOpen={setOpen}
+    <div>
+      <List
+        header={
+          <div className="text-2xl">
+            Users <Button onClick={() => setOpen(true)}>Add User</Button>
+          </div>
+        }
+        dataSource={users}
+        renderItem={(user) => (
+          <List.Item onClick={() => setSelectedUser(user)}>
+            {user.name}{" "}
+            <DeleteFilled
+              style={{ color: "darkred" }}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(user.id);
+              }}
             />
-          </Modal>
-        </div>
-      </UsersDispatchContext.Provider>
-    </UsersContext.Provider>
+            <EditFilled
+              onClick={(e) => {
+                e.stopPropagation();
+                setEditUser(user);
+                setOpen(true);
+              }}
+            />
+          </List.Item>
+        )}
+      />
+
+      <Modal
+        open={selectedUser.name}
+        onCancel={() => setSelectedUser({})}
+        footer={null}
+      >
+        {/* <div>{selectedUser.name}</div> */}
+        <MyTable data={selectedUser} />
+      </Modal>
+      <Modal
+        destroyOnClose
+        open={open}
+        footer={null}
+        onCancel={() => {
+          setOpen(false);
+          setEditUser({});
+        }}
+      >
+        <AddEditUser
+          editUser={editUser}
+          // setUsers={setUsers}
+          usersDispatch={usersDispatch}
+          setEditUser={setEditUser}
+          setOpen={setOpen}
+        />
+      </Modal>
+    </div>
   );
 };
 

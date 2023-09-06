@@ -1,8 +1,7 @@
 import { Button, Form, Input } from "antd";
 import axios from "axios";
 import { ADD_USER, API_URL, UPDATE_USER } from "../constants";
-import { UsersContext, UsersDispatchContext } from "../context/UsersContext";
-import { useContext } from "react";
+import { useUsers, useUsersDispatch } from "../context/UsersContext";
 
 const AddEditUser = ({
   editUser,
@@ -11,9 +10,9 @@ const AddEditUser = ({
   //usersDispatch,
   setOpen,
 }) => {
-  const users = useContext(UsersContext);
+  const users = useUsers();
 
-  const usersDispatch = useContext(UsersDispatchContext);
+  const usersDispatch = useUsersDispatch();
 
   console.log("users>>>", users);
   console.log("usersDispatch>>>", usersDispatch);

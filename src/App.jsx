@@ -1,9 +1,14 @@
 import React from "react";
 import Shop from "./containers/Shop";
 import Users from "./containers/Users";
+import { UsersProvider } from "./context/UsersContext";
 
 const App = () => {
-  return <Users />;
+  return (
+    <UsersProvider>
+      <Users />
+    </UsersProvider>
+  );
   // return <Shop />;
 };
 
